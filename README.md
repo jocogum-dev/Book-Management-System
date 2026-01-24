@@ -62,16 +62,21 @@ Each book record includes:
 ```
 BookManagementSystem/
 │
-├── Scanner/
-│   └── BookScanner.Console
+├── BMS.Scanner/
+│   ├── BMS.Scanner.csproj
+│   └── Program.cs
 │
-├── Web/
-│   └── BookManagement.Web
+├── BMS.Web/
+│   ├── BMS.Web.csproj
+│   └── Pages/
 │
-├── Data/
+├── BMS.Data/
+│   ├── BMS.Data.csproj
 │   └── books.db
 │
+├── BookManagementSystem.sln
 └── README.md
+
 ```
 
 ---
