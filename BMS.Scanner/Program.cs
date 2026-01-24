@@ -1,5 +1,7 @@
 ﻿using System.Text.Json;
+using BMS.Data;
 using BMS.Models;
+using Microsoft.EntityFrameworkCore;
 // check for args
 if (args.Length == 0 || args[0] == "--help")
 {
@@ -16,35 +18,20 @@ if (!Directory.Exists(rootFolder))
 }
 Console.WriteLine($"Scanning for PDF files:\n{rootFolder}");
 
-var outputFile = args.Length > 1 ? Path.GetFullPath(args[1]) : Path.Combine(Directory.GetCurrentDirectory(), "books.json");
-var outputDir = Path.GetDirectoryName(outputFile)!;
-if (!Directory.Exists(outputDir))
-{
-    Directory.CreateDirectory(outputDir);
-    Console.WriteLine($"Created output folder: {outputDir}");
-}
-Console.WriteLine($"JSON output will be saved to: {outputFile}\n");
-
 // scan
 try
 {
     List<BookFile> books = ScanForPdfs(rootFolder);
-    // foreach (var book in books)
-    // {
-    //     Console.WriteLine($"Book: {book.FileName}");
-    //     Console.WriteLine($"Path: {book.FullPath}");
-    //     Console.WriteLine($"Size: {book.SizeBytes / 1024} KB");
-    //     Console.WriteLine();
-    // }
-    // serialize to json
-    var jsonOptions = new JsonSerializerOptions
-    {
-        WriteIndented = true
-    };
-    var json = JsonSerializer.Serialize(books, jsonOptions);
-    File.WriteAllText(outputFile, json);
-
     Console.WriteLine($"--- Found {books.Count} PDF files. --");
+    // print to console
+    //PrintToConsole(books);
+
+    // serialize to json
+    //SaveToJson(books);
+
+    // save data to db
+    SaveToSQLite(books);
+
 }
 catch (Exception ex)
 {
@@ -97,4 +84,49 @@ void PrintHelp()
         - If output file is not specified, defaults to books.json in current directory.
         - The output folder will be created automatically if it does not exist.
     """);
+}
+// void PrintToConsole(List<BookFile> books)
+// {
+//     foreach (var book in books)
+//     {
+//         Console.WriteLine($"Book: {book.FileName}");
+//         Console.WriteLine($"Path: {book.FullPath}");
+//         Console.WriteLine($"Size: {book.SizeBytes / 1024} KB");
+//         Console.WriteLine();
+//     }
+// }
+// void SaveToJson(List<BookFile> books)
+// {
+//     var outputFile = args.Length > 1 ? Path.GetFullPath(args[1]) : Path.Combine(Directory.GetCurrentDirectory(), "books.json");
+//     var outputDir = Path.GetDirectoryName(outputFile)!;
+//     if (!Directory.Exists(outputDir))
+//     {
+//         Directory.CreateDirectory(outputDir);
+//         Console.WriteLine($"Created output folder: {outputDir}");
+//     }
+//     Console.WriteLine($"JSON output will be saved to: {outputFile}\n");
+//     var jsonOptions = new JsonSerializerOptions
+//     {
+//         WriteIndented = true
+//     };
+//     var json = JsonSerializer.Serialize(books, jsonOptions);
+//     File.WriteAllText(outputFile, json);
+// }
+void SaveToSQLite(List<BookFile> books)
+{
+    var dataFolder = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+    if (!Directory.Exists(dataFolder))
+    {
+        Directory.CreateDirectory(dataFolder);
+    }
+    var dbPath = Path.Combine(dataFolder, "books.db");
+    var connectionString = $"Data Source={dbPath}";
+
+    var options = new DbContextOptionsBuilder<BookDbContext>().UseSqlite(connectionString).Options;
+    using (var db = new BookDbContext(options))
+    {
+        db.Database.EnsureCreated();
+        db.Books.AddRange(books);
+        db.SaveChanges();
+    }
 }
