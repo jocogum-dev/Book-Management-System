@@ -75,14 +75,10 @@ void PrintHelp()
     BMS.Scanner - PDF file scanner
 
     Usage:
-        dotnet run -- <folder> [output-file]
+        dotnet run -- <folder>
 
     Example:
-        dotnet run -- "/home/user/Books" "Data/mybooks.json"
-
-    Notes:
-        - If output file is not specified, defaults to books.json in current directory.
-        - The output folder will be created automatically if it does not exist.
+        dotnet run -- "/home/user/Books"
     """);
 }
 // void PrintToConsole(List<BookFile> books)
@@ -114,7 +110,8 @@ void PrintHelp()
 // }
 void SaveToSQLite(List<BookFile> books)
 {
-    var dataFolder = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+    var repoRoot = Directory.GetParent(Directory.GetCurrentDirectory())!.FullName;
+    var dataFolder = Path.Combine(repoRoot, "BMS.Data");
     if (!Directory.Exists(dataFolder))
     {
         Directory.CreateDirectory(dataFolder);
@@ -126,7 +123,37 @@ void SaveToSQLite(List<BookFile> books)
     using (var db = new BookDbContext(options))
     {
         db.Database.EnsureCreated();
-        db.Books.AddRange(books);
-        db.SaveChanges();
+
+        // add books
+        int addedCount = 0;
+        var existingPaths = new HashSet<string>(db.Books.Select(b => b.FullPath));
+        foreach (var book in books)
+        {
+            try
+            {
+                if (!existingPaths.Contains(book.FullPath))
+                {
+                    db.Books.Add(book);
+                    existingPaths.Add(book.FullPath);
+                    addedCount++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Skipped book {book.FileName}: {ex.Message}");
+            }
+        }
+
+        // save books to db
+        try
+        {
+            db.SaveChanges();
+            Console.WriteLine($"Added {addedCount} new books to the database.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving to DB: {ex.Message}");
+        }
+
     }
 }
