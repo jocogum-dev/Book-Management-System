@@ -1,0 +1,48 @@
+# =========================
+# .NET / Visual Studio
+# =========================
+bin/
+obj/
+.vs/
+.vscode/
+.idea/
+
+# Rider
+*.sln.iml
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# SQLite / Local data
+# =========================
+*.db
+*.db-shm
+*.db-wal
+
+# =========================
+# Environment / secrets
+# =========================
+.env
+appsettings.Development.json
+appsettings.Local.json
+
+# =========================
+# Publish output
+# =========================
+publish/
