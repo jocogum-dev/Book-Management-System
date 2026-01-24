@@ -83,23 +83,15 @@ BookManagementSystem/
 
 ## Roadmap
 
-### Phase 1 – MVP
-
-* Scan local directories for PDF files
-* Store results in SQLite
-* Manual execution
-
-### Phase 2
-
-* Detect new, updated, and deleted files
-* Handle duplicates
-* Improve logging and performance
-
-### Phase 3
-
-* Web interface for browsing and searching
-* Folder-based filtering
-* Open ebook from the UI
+- [x] Scan local directories for PDF files (Console App)  
+- [x] Store results in SQLite (`books.db`)  
+- [x] Manual execution of scanner  
+- [x] Web interface for browsing and searching (Razor Pages)  
+- [ ] Detect new, updated, and deleted files automatically  
+- [ ] Handle duplicates efficiently  
+- [ ] Improve logging and performance  
+- [ ] Folder-based filtering in the web UI  
+- [ ] Open ebook from the web UI  
 
 ---
 
