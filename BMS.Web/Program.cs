@@ -1,6 +1,14 @@
+using BMS.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+// path to db
+var repoRoot = Directory.GetParent(Directory.GetCurrentDirectory())!.FullName;
+var dbPath = Path.Combine(repoRoot, "BMS.Data", "books.db");
+var connectionString = $"Data Source={dbPath}";
 
 // Add services to the container.
+builder.Services.AddDbContext<BookDbContext>(opt => opt.UseSqlite(connectionString));
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
