@@ -1,5 +1,12 @@
-﻿// check folder
-string rootFolder = "/home/user/Documents";
+﻿
+// check for args
+if (args.Length == 0 || args[0] == "--help")
+{
+    PrintHelp();
+    return;
+}
+// check folder
+string rootFolder = Path.GetFullPath(args[0]);
 
 if (!Directory.Exists(rootFolder))
 {
@@ -20,12 +27,25 @@ foreach (var file in pdfFiles)
 {
     var info = new FileInfo(file);
 
-    Console.WriteLine($"📄 {info.Name}");
-    Console.WriteLine($"   Path: {info.FullName}");
-    Console.WriteLine($"   Size: {info.Length / 1024} KB");
-    Console.WriteLine($"   Modified: {info.LastWriteTime}");
+    Console.WriteLine($"Book: {info.Name}");
+    Console.WriteLine($"Path: {info.FullName}");
+    Console.WriteLine($"Size: {info.Length / 1024} KB");
+    Console.WriteLine($"Modified: {info.LastWriteTime}");
     Console.WriteLine();
 
     count++;
 }
 Console.WriteLine($"Done.Found {count} PDF files");
+
+void PrintHelp()
+{
+    Console.WriteLine("""
+    BMS.Scanner - PDF file scanner
+
+    Usage:
+      dotnet run -- <folder>
+
+    Example:
+      dotnet run -- "/home/user/Books"
+    """);
+}
