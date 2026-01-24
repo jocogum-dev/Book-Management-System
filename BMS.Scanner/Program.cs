@@ -16,26 +16,39 @@ if (!Directory.Exists(rootFolder))
 Console.WriteLine($"Scanning for PDF files:\n{rootFolder}");
 
 // scan
-var pdfFiles = Directory.EnumerateFiles(
+try
+{
+    ScanForPdfs(rootFolder);
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"An error occured: {ex.Message}");
+}
+
+
+static void ScanForPdfs(string rootFolder)
+{
+    var pdfFiles = Directory.EnumerateFiles(
     rootFolder,
     "*.pdf",
     SearchOption.AllDirectories
 );
-int count = 0;
+    int count = 0;
 
-foreach (var file in pdfFiles)
-{
-    var info = new FileInfo(file);
+    foreach (var file in pdfFiles)
+    {
+        var info = new FileInfo(file);
 
-    Console.WriteLine($"Book: {info.Name}");
-    Console.WriteLine($"Path: {info.FullName}");
-    Console.WriteLine($"Size: {info.Length / 1024} KB");
-    Console.WriteLine($"Modified: {info.LastWriteTime}");
-    Console.WriteLine();
+        Console.WriteLine($"Book: {info.Name}");
+        Console.WriteLine($"Path: {info.FullName}");
+        Console.WriteLine($"Size: {info.Length / 1024} KB");
+        Console.WriteLine($"Modified: {info.LastWriteTime}");
+        Console.WriteLine();
 
-    count++;
+        count++;
+    }
+    Console.WriteLine($"Done.Found {count} PDF files");
 }
-Console.WriteLine($"Done.Found {count} PDF files");
 
 void PrintHelp()
 {
