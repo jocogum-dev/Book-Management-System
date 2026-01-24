@@ -46,3 +46,8 @@ appsettings.Local.json
 # Publish output
 # =========================
 publish/
+
+# =========================
+# My Data
+# =========================
+/BMS.Scanner/Data/

@@ -1,4 +1,5 @@
-﻿
+﻿using System.Text.Json;
+using BMS.Models;
 // check for args
 if (args.Length == 0 || args[0] == "--help")
 {
@@ -15,39 +16,70 @@ if (!Directory.Exists(rootFolder))
 }
 Console.WriteLine($"Scanning for PDF files:\n{rootFolder}");
 
+var outputFile = args.Length > 1 ? Path.GetFullPath(args[1]) : Path.Combine(Directory.GetCurrentDirectory(), "books.json");
+var outputDir = Path.GetDirectoryName(outputFile)!;
+if (!Directory.Exists(outputDir))
+{
+    Directory.CreateDirectory(outputDir);
+    Console.WriteLine($"Created output folder: {outputDir}");
+}
+Console.WriteLine($"JSON output will be saved to: {outputFile}\n");
+
 // scan
 try
 {
-    ScanForPdfs(rootFolder);
+    List<BookFile> books = ScanForPdfs(rootFolder);
+    // foreach (var book in books)
+    // {
+    //     Console.WriteLine($"Book: {book.FileName}");
+    //     Console.WriteLine($"Path: {book.FullPath}");
+    //     Console.WriteLine($"Size: {book.SizeBytes / 1024} KB");
+    //     Console.WriteLine();
+    // }
+    // serialize to json
+    var jsonOptions = new JsonSerializerOptions
+    {
+        WriteIndented = true
+    };
+    var json = JsonSerializer.Serialize(books, jsonOptions);
+    File.WriteAllText(outputFile, json);
+
+    Console.WriteLine($"--- Found {books.Count} PDF files. --");
 }
 catch (Exception ex)
 {
     Console.WriteLine($"An error occured: {ex.Message}");
 }
 
-
-static void ScanForPdfs(string rootFolder)
+// -- functions
+List<BookFile> ScanForPdfs(string rootFolder)
 {
-    var pdfFiles = Directory.EnumerateFiles(
-    rootFolder,
-    "*.pdf",
-    SearchOption.AllDirectories
-);
-    int count = 0;
+    var results = new List<BookFile>();
 
-    foreach (var file in pdfFiles)
+    foreach (var file in Directory.EnumerateFiles(rootFolder, "*.pdf", SearchOption.AllDirectories))
     {
-        var info = new FileInfo(file);
-
-        Console.WriteLine($"Book: {info.Name}");
-        Console.WriteLine($"Path: {info.FullName}");
-        Console.WriteLine($"Size: {info.Length / 1024} KB");
-        Console.WriteLine($"Modified: {info.LastWriteTime}");
-        Console.WriteLine();
-
-        count++;
+        try
+        {
+            var info = new FileInfo(file);
+            results.Add(new BookFile
+            {
+                Id = Guid.NewGuid(),
+                FileName = info.Name,
+                FullPath = info.FullName,
+                DirectoryPath = info.DirectoryName!,
+                SizeBytes = info.Length,
+                LastModified = info.LastWriteTimeUtc,
+                AddedAt = DateTime.UtcNow
+            });
+        }
+        catch
+        {
+            // Skip files that can't be accessed
+            Console.WriteLine($"Skipped: {file}");
+        }
     }
-    Console.WriteLine($"Done.Found {count} PDF files");
+
+    return results;
 }
 
 void PrintHelp()
@@ -56,9 +88,13 @@ void PrintHelp()
     BMS.Scanner - PDF file scanner
 
     Usage:
-      dotnet run -- <folder>
+        dotnet run -- <folder> [output-file]
 
     Example:
-      dotnet run -- "/home/user/Books"
+        dotnet run -- "/home/user/Books" "Data/mybooks.json"
+
+    Notes:
+        - If output file is not specified, defaults to books.json in current directory.
+        - The output folder will be created automatically if it does not exist.
     """);
 }

@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BMS.Data\BMS.Data.csproj" />
+    <ProjectReference Include="..\BMS.Models\BMS.Models.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
