@@ -3,9 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 // path to db
-var repoRoot = Directory.GetParent(Directory.GetCurrentDirectory())!.FullName;
-var dbPath = Path.Combine(repoRoot, "BMS.Data", "books.db");
-var connectionString = $"Data Source={dbPath}";
+// var repoRoot = Directory.GetParent(Directory.GetCurrentDirectory())!.FullName;
+// var dbPath = Path.Combine(repoRoot, "BMS.Data", "books.db");
+// var connectionString = $"Data Source={dbPath}";
+var connectionString = builder.Configuration.GetConnectionString("BookDb");
 
 // Add services to the container.
 builder.Services.AddDbContext<BookDbContext>(opt => opt.UseSqlite(connectionString));
