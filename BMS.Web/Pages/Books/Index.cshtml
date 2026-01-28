@@ -2,9 +2,42 @@
 @model BMS.Web.Pages.Books.BooksModel
 @{
     ViewData["Title"] = "My Books";
+
+    var sort = Request.Query["sort"].ToString();
+    var dir  = Request.Query["dir"].ToString();
+
+    string NextDir(string field)
+    {
+        if (sort == field && dir == "asc")
+            return "desc";
+
+        return "asc";
+    }
+
+    string SortIcon(string field)
+    {
+        if (sort != field) return "";
+
+        return dir == "asc" ? "↑" : "↓";
+    }
 }
 <h1>@ViewData["Title"]</h1>
 <p class="lead">@Model.Books.Count() books found</p>
+<div class="btn-group mb-3">
+<a asp-route-sort="title"
+   asp-route-dir="@NextDir("title")"
+   class="btn btn-sm @(sort == "title" ? "btn-primary" : "btn-outline-primary")">
+   Title @SortIcon("title")
+</a>
+
+<a asp-route-sort="date"
+   asp-route-dir="@NextDir("date")"
+   class="btn btn-sm @(sort == "date" ? "btn-primary" : "btn-outline-primary")">
+   Date @SortIcon("date")
+</a>
+</div>
+
+
 <div class="row">
     @foreach (var book in Model.Books)
     {
