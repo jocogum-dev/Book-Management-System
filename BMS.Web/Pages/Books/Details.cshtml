@@ -2,3 +2,14 @@
 @model BMS.Web.Pages.Books.DetailsModel
 @{
 }
+@* <h1>Details page</h1>
+<p>@Model.Books?.FileName</p>
+@if (Model.Books is not null)
+{
+    <iframe
+        src="Books/Details?id=@Model.Books.Id"
+        width="100%"
+        height="800"
+        style="border:none">
+    </iframe>
+} *@
