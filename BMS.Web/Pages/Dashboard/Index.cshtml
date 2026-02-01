@@ -1,9 +1,63 @@
 ﻿@page
-@model BMS.Web.Pages.Dashboard.IndexModel
+@model BMS.Web.Pages.Dashboard.DashboardModel
 @{
     ViewData["Title"] = "Dashboard";
+    var summary = Model.Summary;
 }
 @* summary of the data - using cards *@
+<div class="row">
+    <div class="col-6 col-md-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <h5 class="card-title display-1">@summary.TotalBooks.ToString("N0")</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">Total Books</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <h5 class="card-title display-1">@summary.TotalSizeGB</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">Total Size (GB)</small>
+            </div>
+        </div>
+    </div>
+        <div class="col-6 col-md-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <h5 class="card-title display-1">@summary.LastAdded?.ToString("MMM dd yyyy")</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">Last Added</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <h5 class="card-title display-1">@summary.LastModified?.ToString("MMM dd yyyy")</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">Last Modified</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <h5 class="card-title display-1">@summary.UniqueFolders</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">Unique folders</small>
+            </div>
+        </div>
+    </div>
+</div>
+
 @* total books - Count of all PDFs in the database*@
 @* total size - Sum of SizeBytes*@
 @* last added - Most recent AddedAt*@
