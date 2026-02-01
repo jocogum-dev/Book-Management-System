@@ -39,23 +39,23 @@
 <table class="table table-bordered border-primary">
     <thead class="table-dark">
     <tr>
-      <th scope="col">File Name</th>
-      <th scope="col">Location</th>
-      <th scope="col">Last Modified</th>
-      <th scope="col">Action</th>
+        <th scope="col">File Name</th>
+        <th scope="col">Location</th>
+        <th scope="col">Last Modified</th>
+        <th scope="col">Action</th>
     </tr>
-  </thead>
-  <tbody>
-  @foreach (var book in Model.Books)
-  {
-    <tr>
-        <th scope="row">@book.FileName</th>
-        <td>@book.DirectoryPath</td>
-        <td>@book.LastModified</td>
-        <td>
-            <a href="Books/Details?id=@book.Id" class="btn btn-primary">Read</a>
-        </td>
-    </tr>
-  }
-  </tbody>
+    </thead>
+    <tbody>
+    @foreach (var book in Model.Books)
+    {
+        <tr>
+            <th scope="row">@book.FileName</th>
+            <td>@book.DirectoryPath</td>
+            <td>@book.LastModified</td>
+            <td>
+                <a href="Books/Details?id=@book.Id" class="btn btn-primary">Read</a>
+            </td>
+        </tr>
+    }
+    </tbody>
 </table>

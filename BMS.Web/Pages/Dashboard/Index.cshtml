@@ -5,6 +5,7 @@
     var summary = Model.Summary;
 }
 @* summary of the data - using cards *@
+<h1>Summary</h1>
 <div class="row">
     <div class="col-6 col-md-4">
         <div class="card border-primary mb-3">
@@ -26,26 +27,6 @@
             </div>
         </div>
     </div>
-        <div class="col-6 col-md-4">
-        <div class="card border-primary mb-3">
-            <div class="card-body text-primary">
-                <h5 class="card-title display-1">@summary.LastAdded?.ToString("MMM dd yyyy")</h5>
-            </div>
-            <div class="card-footer">
-                <small class="text-body-secondary">Last Added</small>
-            </div>
-        </div>
-    </div>
-    <div class="col-6 col-md-4">
-        <div class="card border-primary mb-3">
-            <div class="card-body text-primary">
-                <h5 class="card-title display-1">@summary.LastModified?.ToString("MMM dd yyyy")</h5>
-            </div>
-            <div class="card-footer">
-                <small class="text-body-secondary">Last Modified</small>
-            </div>
-        </div>
-    </div>
     <div class="col-6 col-md-4">
         <div class="card border-primary mb-3">
             <div class="card-body text-primary">
@@ -58,11 +39,32 @@
     </div>
 </div>
 
-@* total books - Count of all PDFs in the database*@
-@* total size - Sum of SizeBytes*@
-@* last added - Most recent AddedAt*@
-@* last modified - Most recent LastModified*@
-@* unique folders - Count of distinct DirectoryPath*@
+<h1>Latest Added</h1>
+<table class="table table-bordered border-primary">
+    <thead class="table-dark">
+    <tr>
+        <th scope="col"></th>
+        <th scope="col">File Name</th>
+        <th scope="col">Location</th>
+        <th scope="col">Last Modified</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LatestAdded.Select((book, index) => new {book, index}))
+        {
+            <tr>
+            <th scope="row">@(item.index+1)</th>
+                <td>@item.book.FileName</td>
+                <td>@item.book.DirectoryPath</td>
+                <td>@item.book.LastModified</td>
+                <td>
+                    <a href="Books/Details?id=@item.book.Id" class="btn btn-primary">Read</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @* charts / analytics *@
 @* books by folder - Bar chart of how many PDFs per folder *@

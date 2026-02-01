@@ -11,6 +11,7 @@ namespace BMS.Web.Pages.Dashboard
     {
         private readonly BookDbContext _db;
         public DashboardViewModel Summary { get; set; } = new DashboardViewModel();
+        public List<BookFile> LatestAdded { get; set; } = new List<BookFile>();
         public DashboardModel(BookDbContext db)
         {
             _db = db;
@@ -21,10 +22,9 @@ namespace BMS.Web.Pages.Dashboard
             {
                 TotalBooks = await _db.Books.CountAsync(),
                 TotalSizeBytes = await _db.Books.SumAsync(b => b.SizeBytes),
-                LastAdded = await _db.Books.OrderByDescending(b => b.AddedAt).Select(b => b.AddedAt).FirstOrDefaultAsync(),
-                LastModified = await _db.Books.OrderByDescending(b => b.LastModified).Select(b => b.LastModified).FirstOrDefaultAsync(),
                 UniqueFolders = await _db.Books.Select(b => b.DirectoryPath).Distinct().CountAsync()
             };
+            LatestAdded = await _db.Books.OrderByDescending(b => b.AddedAt).Take(10).ToListAsync();
         }
     }
 }
