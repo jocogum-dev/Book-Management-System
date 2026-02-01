@@ -34,11 +34,24 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link @(currentPage == "/Dashboard/Index" ? "active" : "") d-flex gap-3 justify-content-center justify-content-md-start" asp-area="" asp-page="/Dashboard/Index">
+                                <i class="bi bi-graph-up-arrow"></i>
+                                <span class="d-none d-md-block">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link @(currentPage == "/Books/Index" ? "active" : "") d-flex gap-3 justify-content-center justify-content-md-start" asp-area="" asp-page="/Books/Index">
                                 <i class="bi bi-file-pdf-fill"></i>
                                 <span class="d-none d-md-block">Books</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(currentPage == "/Scan/Index" ? "active" : "") d-flex gap-3 justify-content-center justify-content-md-start" asp-area="" asp-page="/Scan/Index">
+                                <i class="bi bi-file-earmark-plus-fill"></i>
+                                <span class="d-none d-md-block">Scan</span>
+                            </a>
+                        </li>
+
                     </ul>
             </aside>
             <main role="main" class="col-10 p-3">

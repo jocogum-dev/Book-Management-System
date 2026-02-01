@@ -33,23 +33,29 @@
 <a asp-route-sort="date"
    asp-route-dir="@NextDir("date")"
    class="btn btn-sm @(sort == "date" ? "btn-primary" : "btn-outline-primary")">
-   Date @SortIcon("date")
+   Last Modified @SortIcon("date")
 </a>
 </div>
-
-
-<div class="row">
-    @foreach (var book in Model.Books)
-    {
-        <div class="col col-md-6 col-lg-4 mb-3">
-            <div class="card border-primary h-100">
-                <div class="card-body">
-                    <h5 class="card-title">@book.FileName</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">@book.DirectoryPath</h6>
-                    <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-                    <a href="Books/Details?id=@book.Id" class="btn btn-primary">Read</a>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+<table class="table table-bordered border-primary">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">File Name</th>
+      <th scope="col">Location</th>
+      <th scope="col">Last Modified</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach (var book in Model.Books)
+  {
+    <tr>
+        <th scope="row">@book.FileName</th>
+        <td>@book.DirectoryPath</td>
+        <td>@book.LastModified</td>
+        <td>
+            <a href="Books/Details?id=@book.Id" class="btn btn-primary">Read</a>
+        </td>
+    </tr>
+  }
+  </tbody>
+</table>

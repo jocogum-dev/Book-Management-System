@@ -91,17 +91,8 @@ BookManagementSystem/
 - [ ] Handle duplicates efficiently  
 - [ ] Improve logging and performance  
 - [ ] Folder-based filtering in the web UI  
-- [ ] Open ebook from the web UI  
-
----
-
-## Future Ideas
-
-* Extract PDF metadata (title, author)
-* Tags and categories
-* Reading status / progress tracking
-* Notes per book
-* Cross-device syncing
+- [x] Open ebook from the web UI  
+- [ ] Dashboard
 
 ---
 
