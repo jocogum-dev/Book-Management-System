@@ -36,12 +36,11 @@
    Last Modified @SortIcon("date")
 </a>
 </div>
-<table class="table table-bordered border-primary">
+<table class="table border-primary">
     <thead class="table-dark">
     <tr>
         <th scope="col">File Name</th>
         <th scope="col">Location</th>
-        <th scope="col">Last Modified</th>
         <th scope="col">Action</th>
     </tr>
     </thead>
@@ -51,9 +50,11 @@
         <tr>
             <th scope="row">@book.FileName</th>
             <td>@book.DirectoryPath</td>
-            <td>@book.LastModified</td>
             <td>
-                <a href="Books/Details?id=@book.Id" class="btn btn-primary">Read</a>
+                <div class="btn-group">
+                    <a asp-page="/Books/Details" asp-route-id="@book.Id" class="btn btn-primary">Read</a>
+                    <a asp-page="/Books/Delete" asp-route-id="@book.Id" class="btn btn-outline-danger">Delete</a>
+                </div>
             </td>
         </tr>
     }

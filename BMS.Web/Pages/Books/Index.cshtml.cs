@@ -37,9 +37,7 @@ namespace BMS.Web.Pages.Books
                 {
                     Books = await _db.Books.OrderBy(b => b.LastModified).ToListAsync();
                 }
-                
             }
-
         }
     }
 }

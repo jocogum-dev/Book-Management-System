@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @model BMS.Web.Pages.Dashboard.DashboardModel
 @{
     ViewData["Title"] = "Dashboard";
@@ -40,7 +40,7 @@
 </div>
 
 <h1>Latest Added</h1>
-<table class="table table-bordered border-primary">
+<table class="table border-primary">
     <thead class="table-dark">
     <tr>
         <th scope="col"></th>
@@ -59,7 +59,10 @@
                 <td>@item.book.DirectoryPath</td>
                 <td>@item.book.LastModified</td>
                 <td>
-                    <a href="Books/Details?id=@item.book.Id" class="btn btn-primary">Read</a>
+                    <div class="btn-group">
+                        <a asp-page="/Books/Details" asp-route-id="@item.book.Id" class="btn btn-primary">Read</a>
+                        <a asp-page="/Books/Delete" asp-route-id="@item.book.Id" class="btn btn-outline-danger">Delete</a>
+                    </div>
                 </td>
             </tr>
         }

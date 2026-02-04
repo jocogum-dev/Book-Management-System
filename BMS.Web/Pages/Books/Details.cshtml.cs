@@ -13,7 +13,7 @@ namespace BMS.Web.Pages.Books
         {
             _db = db;
         }
-        public async Task<IActionResult> OnGetAsync([FromQuery] Guid id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
             Books = await _db.Books.FindAsync(id);
             if (Books == null || !System.IO.File.Exists(Books.FullPath))
