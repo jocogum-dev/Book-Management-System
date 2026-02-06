@@ -4,7 +4,7 @@
     ViewData["Title"] = "My Books";
 
     var sort = Request.Query["sort"].ToString();
-    var dir  = Request.Query["dir"].ToString();
+    var dir = Request.Query["dir"].ToString();
 
     string NextDir(string field)
     {
@@ -23,40 +23,50 @@
 }
 <h1>@ViewData["Title"]</h1>
 <p class="lead">@Model.Books.Count() books found</p>
-<div class="btn-group mb-3">
-<a asp-route-sort="title"
-   asp-route-dir="@NextDir("title")"
-   class="btn btn-sm @(sort == "title" ? "btn-primary" : "btn-outline-primary")">
-   Title @SortIcon("title")
-</a>
+<div class="d-flex justify-content-between gap-5">
+    <form method="get">
+        <input type="hidden" name="sort" value="@sort" />
+        <input type="hidden" name="dir" value="@dir" />
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="search" placeholder="Search books"
+                value='@Request.Query["search"]'>
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </div>
+    </form>
+    <div class="btn-group mb-3">
+        <a asp-route-search='@Request.Query["search"]' asp-route-sort="title" asp-route-dir="@NextDir("title")"
+            class="align-middle btn btn-sm @(sort == "title" ? "btn-primary" : "btn-outline-primary")">
+            Title @SortIcon("title")
+        </a>
 
-<a asp-route-sort="date"
-   asp-route-dir="@NextDir("date")"
-   class="btn btn-sm @(sort == "date" ? "btn-primary" : "btn-outline-primary")">
-   Last Modified @SortIcon("date")
-</a>
+        <a asp-route-search='@Request.Query["search"]' asp-route-sort="date" asp-route-dir="@NextDir("date")"
+            class="btn btn-sm @(sort == "date" ? "btn-primary" : "btn-outline-primary")">
+            Last Modified @SortIcon("date")
+        </a>
+    </div>
 </div>
+
 <table class="table border-primary">
     <thead class="table-dark">
-    <tr>
-        <th scope="col">File Name</th>
-        <th scope="col">Location</th>
-        <th scope="col">Action</th>
-    </tr>
+        <tr>
+            <th scope="col">File Name</th>
+            <th scope="col">Location</th>
+            <th scope="col">Action</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var book in Model.Books)
-    {
-        <tr>
-            <th scope="row">@book.FileName</th>
-            <td>@book.DirectoryPath</td>
-            <td>
-                <div class="btn-group">
-                    <a asp-page="/Books/Details" asp-route-id="@book.Id" class="btn btn-primary">Read</a>
-                    <a asp-page="/Books/Delete" asp-route-id="@book.Id" class="btn btn-outline-danger">Delete</a>
-                </div>
-            </td>
-        </tr>
-    }
+        @foreach (var book in Model.Books)
+        {
+            <tr>
+                <th scope="row">@book.FileName</th>
+                <td>@book.DirectoryPath</td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-page="/Books/Details" asp-route-id="@book.Id" class="btn btn-primary">Read</a>
+                        <a asp-page="/Books/Delete" asp-route-id="@book.Id" class="btn btn-outline-danger">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

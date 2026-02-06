@@ -14,30 +14,39 @@ namespace BMS.Web.Pages.Books
             _db = db;
         }
         public List<BookFile> Books { get; set; } = new List<BookFile>();
-        public async Task OnGetAsync(string? sort, string? dir)
+        public async Task OnGetAsync(string? sort, string? dir, string? search)
         {
+            var myQuery = _db.Books.AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                myQuery = myQuery.Where(b => b.FileName.ToLower().Contains(search));
+            }
+
             if (sort == "title")
             {
                 if (dir == "desc")
                 {
-                    Books = await _db.Books.OrderByDescending(b => b.FileName).ToListAsync();
+                    myQuery = myQuery.OrderByDescending(b => b.FileName);
                 }
                 else
                 {
-                    Books = await _db.Books.OrderBy(b => b.FileName).ToListAsync();
+                    myQuery = myQuery.OrderBy(b => b.FileName);
                 }
             }
             else
             {
                 if (dir == "desc")
                 {
-                    Books = await _db.Books.OrderByDescending(b => b.LastModified).ToListAsync();
+                    myQuery = myQuery.OrderByDescending(b => b.LastModified);
                 }
                 else
                 {
-                    Books = await _db.Books.OrderBy(b => b.LastModified).ToListAsync();
+                    myQuery = myQuery.OrderBy(b => b.LastModified);
                 }
             }
+
+            Books = await myQuery.ToListAsync();
         }
     }
 }
