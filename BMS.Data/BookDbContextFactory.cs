@@ -10,7 +10,7 @@ public class BookDbContextFactory : IDesignTimeDbContextFactory<BookDbContext>
     {
         var config = new ConfigurationBuilder()
             .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../BMS.Web"))
-            .AddJsonFile("appsettings.json", optional: false)
+            .AddJsonFile("appsettings.Development.json", optional: false)
             .Build();
 
         var connectionString = config.GetConnectionString("BookDb");

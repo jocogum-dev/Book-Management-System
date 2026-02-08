@@ -1,0 +1,31 @@
+﻿@page
+@model BMS.Web.Pages.Account.RegisterModel
+@{
+}
+<div class="card">
+    <div class="card-body">
+        <form method="post"> 
+            <h1 class="h3 mb-3">Register</h1>
+            <div class="form-floating">
+                <input asp-for="RegisterEmail" class="form-control" id="floatingInput">
+                <label for="floatingInput">Email address</label>
+                <span asp-validation-for="RegisterEmail" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="RegisterPassword" class="form-control" id="floatingPassword">
+                <label for="floatingPassword">Password</label>
+                <span asp-validation-for="RegisterPassword" class="text-danger"></span>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
+        </form>
+        @{
+            if(!ModelState.IsValid)
+            {
+                <p class="text-danger">Invalid user credentials</p>
+            }
+        }
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,16 +1,24 @@
 using BMS.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 // path to db
-// var repoRoot = Directory.GetParent(Directory.GetCurrentDirectory())!.FullName;
-// var dbPath = Path.Combine(repoRoot, "BMS.Data", "books.db");
-// var connectionString = $"Data Source={dbPath}";
 var connectionString = builder.Configuration.GetConnectionString("BookDb");
 
 // Add services to the container.
 builder.Services.AddDbContext<BookDbContext>(opt => opt.UseSqlite(connectionString));
-builder.Services.AddRazorPages();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
+{
+    opt.Password.RequireDigit = false;
+    opt.Password.RequiredLength = 6;
+    opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequireUppercase = false;
+}).AddEntityFrameworkStores<BookDbContext>().AddDefaultTokenProviders();
+builder.Services.AddRazorPages(opt =>
+{
+    opt.Conventions.AuthorizeFolder("/Dashboard");
+});
 
 var app = builder.Build();
 
@@ -25,7 +33,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

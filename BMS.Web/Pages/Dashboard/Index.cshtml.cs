@@ -1,12 +1,14 @@
 using BMS.Data;
 using BMS.Models;
 using BMS.Web.ViewModels.Dashboard;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace BMS.Web.Pages.Dashboard
 {
+    [Authorize]
     public class DashboardModel : PageModel
     {
         private readonly BookDbContext _db;

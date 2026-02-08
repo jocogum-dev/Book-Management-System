@@ -1,9 +1,10 @@
 ﻿using BMS.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BMS.Data;
 
-public class BookDbContext : DbContext
+public class BookDbContext : IdentityDbContext
 {
     public DbSet<BookFile> Books { get; set; } = null!;
 
