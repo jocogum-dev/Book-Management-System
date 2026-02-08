@@ -104,32 +104,32 @@ Each user has a personal collection:
 
 ## Roadmap
 
-### Phase 1 – Core Library
+### Phase 1 - Core Library
 - [x] Scan local directories for PDF files (Console App)
 - [x] Store results in SQLite (`books.db`)
 - [x] Show all books
 - [x] Admin dashboard (library summary)
 - [x] Open ebook from the web UI
 
-### Phase 2 – Library UX
-- [ ] Filter and search books
+### Phase 2 - Library UX
+- [x] Filter and search books
 
-### Phase 3 – Users & Auth
+### Phase 3 - Users & Auth
 - [ ] Add user authentication
 - [ ] Add admin role
 - [ ] Restrict dashboard to admin users only
 - [ ] Hide / unhide books (admin)
 
-### Phase 4 – Scanner Control
+### Phase 4 - Scanner Control
 - [ ] Extend scanner from console app to background service
 - [ ] Scan folders, sync records, remove orphaned records
 - [ ] Allow admin to trigger scanner service manually
 
-### Phase 5 – User Features
+### Phase 5 - User Features
 - [ ] User collections
 - [ ] Favorites
 
-### Phase 6 – Automation & Polish
+### Phase 6 - Automation & Polish
 - [ ] Detect new, updated, and deleted files automatically
 - [ ] Handle duplicates efficiently
 - [ ] Improve logging and performance

@@ -12,11 +12,11 @@
     <li class="list-group-item fw-bold">@Model.Book?.FileName</li>
     <li class="list-group-item">@Model.Book?.DirectoryPath</li>
   </ul>
-    <div class="card-footer bg-transparent border-success">
+    <div class="card-footer bg-transparent border-success d-flex gap-2">
        <form method="post">
-            <input type="hidden" asp-for="@Model.Book.Id" />
+            <input type="hidden" asp-for="Book.Id" />
             <input type="submit" value="Delete" class="btn btn-danger" />
-            <a asp-page="/Dashboard/Index" class="btn btn-outline-primary">Back to Dashboard</a>
         </form>
+        <a asp-page="/Books/Index" class="btn btn-outline-primary">Back to Books</a>
     </div>
 </div>
