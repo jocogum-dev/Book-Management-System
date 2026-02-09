@@ -1,0 +1,34 @@
+﻿@page
+@model BMS.Web.Pages.Account.AssignRoleModel
+@{
+    ViewData["Title"] = "Assign Role";
+}
+<div class="card">
+    <div class="card-body">
+        <form method="post"> 
+            <h1 class="h3 mb-3">Assign Role</h1>
+            <div class="mb-3">
+                <select asp-for="SelectedUserId" class="form-select">
+                    <option selected>Select User</option>
+                    @foreach(var user in Model.Users){
+                        <option value="@user.Id">@user.Email</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <select asp-for="Role" class="form-select">
+                    <option selected>Select role</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                </select>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">Assign Role</button>
+        </form>
+        @{
+            if(!string.IsNullOrEmpty(Model.Message))
+            {
+                <p class="text-warning">@Model.Message</p>
+            }
+        }
+    </div>
+</div>

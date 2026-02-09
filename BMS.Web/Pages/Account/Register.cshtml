@@ -6,12 +6,12 @@
     <div class="card-body">
         <form method="post"> 
             <h1 class="h3 mb-3">Register</h1>
-            <div class="form-floating">
+            <div class="form-floating mb-3">
                 <input asp-for="RegisterEmail" class="form-control" id="floatingInput">
                 <label for="floatingInput">Email address</label>
                 <span asp-validation-for="RegisterEmail" class="text-danger"></span>
             </div>
-            <div class="form-floating">
+            <div class="form-floating mb-3">
                 <input asp-for="RegisterPassword" class="form-control" id="floatingPassword">
                 <label for="floatingPassword">Password</label>
                 <span asp-validation-for="RegisterPassword" class="text-danger"></span>
