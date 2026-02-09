@@ -19,6 +19,11 @@ builder.Services.AddRazorPages(opt =>
 {
     opt.Conventions.AuthorizeFolder("/Dashboard");
 });
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+    opt.LoginPath = "/Account/Login";
+    opt.AccessDeniedPath = "/Account/AccessDenied";
+});
 
 var app = builder.Build();
 

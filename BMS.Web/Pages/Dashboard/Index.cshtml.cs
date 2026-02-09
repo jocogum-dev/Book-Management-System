@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BMS.Web.Pages.Dashboard
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class DashboardModel : PageModel
     {
         private readonly BookDbContext _db;

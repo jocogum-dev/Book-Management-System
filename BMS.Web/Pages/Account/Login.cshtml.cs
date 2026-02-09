@@ -35,7 +35,7 @@ namespace BMS.Web.Pages.Account
                 lockoutOnFailure: false
             );
             ModelState.AddModelError("", "Invalid login attempt");
-            return RedirectToPage("/Dashboard/Index");
+            return RedirectToPage("/Books/Index");
         }
     }
 }

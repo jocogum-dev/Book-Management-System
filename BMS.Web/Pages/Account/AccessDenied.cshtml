@@ -1,0 +1,16 @@
+﻿@page
+@model BMS.Web.Pages.Account.AccessDeniedModel
+@{
+}
+<div class="card border-danger">
+  <div class="card-header">
+    Access Denied
+  </div>
+  <div class="card-body text-secondary">
+    <h5 class="card-title">You do not have permission to access this page.</h5>
+  </div>
+  <p></p>
+    <div class="card-footer bg-transparent border-success d-flex gap-2">
+        <a asp-page="/Books/Index" class="btn btn-outline-primary">Back to Books</a>
+    </div>
+</div>

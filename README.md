@@ -115,9 +115,9 @@ Each user has a personal collection:
 - [x] Filter and search books
 
 ### Phase 3 - Users & Auth
-- [ ] Add user authentication
-- [ ] Add admin role
-- [ ] Restrict dashboard to admin users only
+- [x] Add user authentication
+- [x] Add admin role
+- [x] Restrict dashboard to admin users only
 - [ ] Hide / unhide books (admin)
 
 ### Phase 4 - Scanner Control

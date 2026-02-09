@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BMS.Web.Pages.Account
 {
+    [Authorize(Roles = "Admin")]
     public class AssignRoleModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -41,11 +43,11 @@ namespace BMS.Web.Pages.Account
         public async Task<IActionResult> OnPostAsync()
         {
             if (string.IsNullOrEmpty(SelectedUserId) || string.IsNullOrEmpty(Role))
-        {
-            Message = "User and Role are required.";
-            await OnGetAsync(); // reload users for the dropdown
-            return Page();
-        }
+            {
+                Message = "User and Role are required.";
+                await OnGetAsync(); // reload users for the dropdown
+                return Page();
+            }
             // check role
             if (!allowedRoles.Contains(Role))
             {
