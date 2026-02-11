@@ -63,7 +63,10 @@
                 <td>
                     <div class="btn-group">
                         <a asp-page="/Books/Details" asp-route-id="@book.Id" class="btn btn-primary">Read</a>
-                        <a asp-page="/Books/Delete" asp-route-id="@book.Id" class="btn btn-outline-danger">Delete</a>
+                        @if(User.IsInRole("Admin")){
+                            <a asp-page="/Books/Delete" asp-route-id="@book.Id" class="btn btn-outline-danger">Delete</a>
+                        }
+                        
                     </div>
                 </td>
             </tr>

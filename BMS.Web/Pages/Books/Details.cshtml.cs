@@ -15,15 +15,19 @@ namespace BMS.Web.Pages.Books
         }
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            Books = await _db.Books.FindAsync(id);
-            if (Books == null || !System.IO.File.Exists(Books.FullPath))
+            if (User.Identity != null && User.Identity.IsAuthenticated)
             {
-                return NotFound();
+                Books = await _db.Books.FindAsync(id);
+                if (Books == null || !System.IO.File.Exists(Books.FullPath))
+                {
+                    return NotFound();
+                }
+                return PhysicalFile(
+                    Books.FullPath,
+                    "application/pdf"
+                );
             }
-            return PhysicalFile(
-                Books.FullPath,
-                "application/pdf"
-            );
+            return RedirectToPage("/Account/Login");
         }
     }
 }

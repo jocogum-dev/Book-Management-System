@@ -5,7 +5,16 @@
 }
 
 
-<main class="px-3">
+<main class="px-3 text-center mt-5">
     <h1>Book Management System</h1>
     <p class="lead">For tracking and organizing e-books.</p>
+    <div class="container">
+        <form method="get" asp-page="/Books/Index">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="search" placeholder="What's your interest?"
+                    value='@Request.Query["search"]'>
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
 </main>
