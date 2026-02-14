@@ -16,8 +16,15 @@ public class ThumbnailService
             return;
         }
         var process = new Process();
-        process.StartInfo.FileName = "convert";
-        process.StartInfo.Arguments = $"-density 150 \"{directoryPath}/{pdfPath}[0]\" -quality 90 -resize 300x \"{outputPath}\"";
+        process.StartInfo.FileName = "/usr/bin/convert";
+        process.StartInfo.ArgumentList.Add("-density");
+        process.StartInfo.ArgumentList.Add("150");
+        process.StartInfo.ArgumentList.Add($"{directoryPath}/{pdfPath}[0]");
+        process.StartInfo.ArgumentList.Add("-quality");
+        process.StartInfo.ArgumentList.Add("90");
+        process.StartInfo.ArgumentList.Add("-resize");
+        process.StartInfo.ArgumentList.Add("300x");
+        process.StartInfo.ArgumentList.Add(outputPath);
         process.StartInfo.RedirectStandardError = true;
         process.StartInfo.UseShellExecute = false;
 
