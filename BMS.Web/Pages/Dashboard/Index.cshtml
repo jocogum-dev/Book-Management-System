@@ -45,19 +45,38 @@
     <tr>
         <th scope="col"></th>
         <th scope="col">File Name</th>
-        <th scope="col">Location</th>
-        <th scope="col">Last Modified</th>
+        @* <th scope="col">Location</th>
+        <th scope="col">Last Modified</th> *@
+        <th scope="col">Cover</th>
         <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.LatestAdded.Select((book, index) => new {book, index}))
+        @* @foreach (var item in Model.LatestAdded.Select((book, index) => new {book, index}))
         {
             <tr>
             <th scope="row">@(item.index+1)</th>
                 <td>@item.book.FileName</td>
                 <td>@item.book.DirectoryPath</td>
                 <td>@item.book.LastModified</td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-page="/Books/Details" asp-route-id="@item.book.Id" class="btn btn-primary">Read</a>
+                        <a asp-page="/Books/Delete" asp-route-id="@item.book.Id" class="btn btn-outline-danger">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        } *@
+                @foreach (var item in Model.BooksWithThumbnail.Select((book, index) => new {book, index}))
+        {
+            <tr>
+            <th scope="row">@(item.index+1)</th>
+                <td>@item.book.Title</td>
+                @* <td>@item.book.DirectoryPath</td> *@
+                @* <td>@item.book.AddedAt</td> *@
+                <td>
+                    <img src="@item.book.ThumbnailPath" class="img-thumbnail" alt="thumbnail">
+                </td>
                 <td>
                     <div class="btn-group">
                         <a asp-page="/Books/Details" asp-route-id="@item.book.Id" class="btn btn-primary">Read</a>

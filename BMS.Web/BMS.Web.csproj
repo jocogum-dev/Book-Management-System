@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BMS.Data\BMS.Data.csproj" />
     <ProjectReference Include="..\BMS.Models\BMS.Models.csproj" />
+    <ProjectReference Include="..\BMS.Services\BMS.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

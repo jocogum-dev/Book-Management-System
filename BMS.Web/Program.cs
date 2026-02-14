@@ -1,4 +1,5 @@
 using BMS.Data;
+using BMS.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,7 @@ builder.Services.ConfigureApplicationCookie(opt =>
     opt.LoginPath = "/Account/Login";
     opt.AccessDeniedPath = "/Account/AccessDenied";
 });
+builder.Services.AddScoped<ThumbnailService>();
 
 var app = builder.Build();
 
