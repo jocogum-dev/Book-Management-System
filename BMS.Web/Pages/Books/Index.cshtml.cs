@@ -20,7 +20,7 @@ namespace BMS.Web.Pages.Books
 
             if (!string.IsNullOrEmpty(search))
             {
-                myQuery = myQuery.Where(b => b.FileName.ToLower().Contains(search));
+                myQuery = myQuery.Where(b => b.FileName.ToLower().Contains(search.ToLower()));
             }
 
             if (sort == "title")
