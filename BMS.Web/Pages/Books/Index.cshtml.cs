@@ -1,20 +1,21 @@
 using BMS.Data;
 using BMS.Models;
+using BMS.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace BMS.Web.Pages.Books
 {
-    public class BooksModel : PageModel
+    public class IndexModel : PageModel
     {
         private readonly BookDbContext _db;
-        public BooksModel(BookDbContext db)
+        public IndexModel(BookDbContext db)
         {
             _db = db;
         }
-        public List<BookFile> Books { get; set; } = new List<BookFile>();
-        public async Task OnGetAsync(string? sort, string? dir, string? search)
+        public PaginatedList<BookFile> Books { get; set; } = new PaginatedList<BookFile>(new List<BookFile>(), 0, 1, 10);
+        public async Task OnGetAsync(string? sort, string? dir, string? search, int? pageIndex)
         {
             var myQuery = _db.Books.AsQueryable();
 
@@ -45,8 +46,9 @@ namespace BMS.Web.Pages.Books
                     myQuery = myQuery.OrderBy(b => b.LastModified);
                 }
             }
-
-            Books = await myQuery.ToListAsync();
+            int pageSize = 50; // number of items per page
+            // Books = await myQuery.ToListAsync();
+            Books = await PaginatedList<BookFile>.CreateAsync(myQuery, pageIndex ?? 1, pageSize);
         }
     }
 }
