@@ -51,3 +51,4 @@ publish/
 # My Data
 # =========================
 /BMS.Scanner/Data/
+/BMS.Web/wwwroot/thumbnails

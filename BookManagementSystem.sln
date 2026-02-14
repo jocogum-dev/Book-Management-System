@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMS.Data", "BMS.Data\BMS.Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMS.Models", "BMS.Models\BMS.Models.csproj", "{AD71E9A2-6FBC-455B-91AC-FEC8AEAF13DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMS.Services", "BMS.Services\BMS.Services.csproj", "{24371D3E-DF6E-417E-A4D0-917D8829229A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{AD71E9A2-6FBC-455B-91AC-FEC8AEAF13DE}.Release|x64.Build.0 = Release|Any CPU
 		{AD71E9A2-6FBC-455B-91AC-FEC8AEAF13DE}.Release|x86.ActiveCfg = Release|Any CPU
 		{AD71E9A2-6FBC-455B-91AC-FEC8AEAF13DE}.Release|x86.Build.0 = Release|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Debug|x64.Build.0 = Debug|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Debug|x86.Build.0 = Debug|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Release|x64.ActiveCfg = Release|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Release|x64.Build.0 = Release|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Release|x86.ActiveCfg = Release|Any CPU
+		{24371D3E-DF6E-417E-A4D0-917D8829229A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
