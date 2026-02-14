@@ -5,8 +5,10 @@ namespace BMS.Web.Pages.Error
 {
     public class ErrorModel : PageModel
     {
-        public void OnGet()
+        public string? ErrorMessage { get; set; }
+        public void OnGet(string? message = null)
         {
+            ErrorMessage = message ?? "An error occured.";
         }
     }
 }
