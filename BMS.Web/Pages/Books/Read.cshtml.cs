@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BMS.Web.Pages.Books
 {
-    public class DetailsModel : PageModel
+    public class ReadModel : PageModel
     {
         private readonly BookDbContext _db;
         public BookFile? Books { get; set; } = default!;
-        public DetailsModel(BookDbContext db)
+        public ReadModel(BookDbContext db)
         {
             _db = db;
         }

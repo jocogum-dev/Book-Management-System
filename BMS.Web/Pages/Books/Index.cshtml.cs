@@ -14,7 +14,7 @@ namespace BMS.Web.Pages.Books
         {
             _db = db;
         }
-        public PaginatedList<BookFile> Books { get; set; } = new PaginatedList<BookFile>(new List<BookFile>(), 0, 1, 10);
+        public PaginatedList<BookFile> Books { get; set; } = new PaginatedList<BookFile>([], 0, 1, 10);
         public async Task OnGetAsync(string? sort, string? dir, string? search, int? pageIndex)
         {
             var myQuery = _db.Books.AsQueryable();
@@ -46,8 +46,7 @@ namespace BMS.Web.Pages.Books
                     myQuery = myQuery.OrderBy(b => b.LastModified);
                 }
             }
-            int pageSize = 50; // number of items per page
-            // Books = await myQuery.ToListAsync();
+            int pageSize = 50;
             Books = await PaginatedList<BookFile>.CreateAsync(myQuery, pageIndex ?? 1, pageSize);
         }
     }

@@ -52,22 +52,7 @@
     </tr>
     </thead>
     <tbody>
-        @* @foreach (var item in Model.LatestAdded.Select((book, index) => new {book, index}))
-        {
-            <tr>
-            <th scope="row">@(item.index+1)</th>
-                <td>@item.book.FileName</td>
-                <td>@item.book.DirectoryPath</td>
-                <td>@item.book.LastModified</td>
-                <td>
-                    <div class="btn-group">
-                        <a asp-page="/Books/Details" asp-route-id="@item.book.Id" class="btn btn-primary">Read</a>
-                        <a asp-page="/Books/Delete" asp-route-id="@item.book.Id" class="btn btn-outline-danger">Delete</a>
-                    </div>
-                </td>
-            </tr>
-        } *@
-                @foreach (var item in Model.BooksWithThumbnail.Select((book, index) => new {book, index}))
+        @foreach (var item in Model.BooksWithThumbnail.Select((book, index) => new {book, index}))
         {
             <tr>
             <th scope="row">@(item.index+1)</th>
@@ -79,7 +64,7 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <a asp-page="/Books/Details" asp-route-id="@item.book.Id" class="btn btn-primary">Read</a>
+                        <a asp-page="/Books/Read" asp-route-id="@item.book.Id" class="btn btn-primary">Read</a>
                         <a asp-page="/Books/Delete" asp-route-id="@item.book.Id" class="btn btn-outline-danger">Delete</a>
                     </div>
                 </td>

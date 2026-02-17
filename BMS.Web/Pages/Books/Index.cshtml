@@ -62,11 +62,12 @@
                 <td>@book.DirectoryPath</td>
                 <td>
                     <div class="btn-group">
-                        <a asp-page="/Books/Details" asp-route-id="@book.Id" class="btn btn-primary">Read</a>
-                        @if(User.IsInRole("Admin")){
+                        <a asp-page="/Books/Read" asp-route-id="@book.Id" class="btn btn-primary">Read</a>
+                        @if (User.IsInRole("Admin"))
+                        {
                             <a asp-page="/Books/Delete" asp-route-id="@book.Id" class="btn btn-outline-danger">Delete</a>
                         }
-                        
+
                     </div>
                 </td>
             </tr>
@@ -74,38 +75,27 @@
     </tbody>
 </table>
 <nav aria-label="Page navigation">
-  <ul class="pagination">
-    <li class="page-item @(Model.Books.HasPreviousPage ? "" : "disabled")">
-      <a class="page-link"
-            asp-page="./Index"
-            asp-route-search="@Request.Query["search"]"
-            asp-route-sort="@Request.Query["sort"]"
-            asp-route-dir="@Request.Query["dir"]"
-            asp-route-pageIndex="@(Model.Books.PageIndex - 1)">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    @for (int i = 1; i <= Model.Books.TotalPages; i++)
-    {
-        <li class="page-item @(i == Model.Books.PageIndex ? "active" : "")">
-            <a class="page-link" 
-                asp-route-pageIndex="@i"
-                asp-page="./Index"
-                asp-route-search="@Request.Query["search"]"
-                asp-route-sort="@Request.Query["sort"]"
-                asp-route-dir="@Request.Query["dir"]"
-            >@i</a>
+    <ul class="pagination">
+        <li class="page-item @(Model.Books.HasPreviousPage ? "" : "disabled")">
+            <a class="page-link" asp-page="./Index" asp-route-search="@Request.Query["search"]"
+                asp-route-sort="@Request.Query["sort"]" asp-route-dir="@Request.Query["dir"]"
+                asp-route-pageIndex="@(Model.Books.PageIndex - 1)">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
         </li>
-    }
-    <li class="page-item">
-      <a class="page-link"
-            asp-page="./Index"
-            asp-route-search="@Request.Query["search"]"
-            asp-route-sort="@Request.Query["sort"]"
-            asp-route-dir="@Request.Query["dir"]"
-        asp-route-pageIndex="@(Model.Books.PageIndex + 1)">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
+        @for (int i = 1; i <= Model.Books.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.Books.PageIndex ? "active" : "")">
+                <a class="page-link" asp-route-pageIndex="@i" asp-page="./Index" asp-route-search="@Request.Query["search"]"
+                    asp-route-sort="@Request.Query["sort"]" asp-route-dir="@Request.Query["dir"]">@i</a>
+            </li>
+        }
+        <li class="page-item">
+            <a class="page-link" asp-page="./Index" asp-route-search="@Request.Query["search"]"
+                asp-route-sort="@Request.Query["sort"]" asp-route-dir="@Request.Query["dir"]"
+                asp-route-pageIndex="@(Model.Books.PageIndex + 1)">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
 </nav>
